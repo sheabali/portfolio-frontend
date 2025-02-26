@@ -11,7 +11,7 @@ import Image from 'next/image';
 const Banner = () => {
   return (
     <Container>
-      <div className="flex justify-between gap-4 py-3">
+      <div className="flex justify-between gap-4 py-3 mb-10">
         <div className="w-[50%]">
           <div>
             <h1 className="text-5xl font-semibold">
@@ -25,14 +25,14 @@ const Banner = () => {
               took a galley of type and scrambled it to specimen book.
             </p>
             <div className="flex gap-4 items-center mt-28">
-              <Image src={Facebook} width={45} height={20} alt="Discord" />
-              <Image src={Discord} width={45} height={20} alt="Discord" />
-              <Image src={Twitter} width={45} height={20} alt="Discord" />
-              <Image src={Github} width={45} height={20} alt="Discord" />
+              <Image src={Facebook} width={43} height={20} alt="Discord" />
+              <Image src={Discord} width={43} height={20} alt="Discord" />
+              <Image src={Twitter} width={43} height={20} alt="Discord" />
+              <Image src={Github} width={43} height={20} alt="Discord" />
             </div>
           </div>
         </div>
-        <div className="w-[50%] ">
+        <div className="w-[50%]">
           <Image src={BannerImage} width={800} height={400} alt="Banner " />
         </div>
       </div>

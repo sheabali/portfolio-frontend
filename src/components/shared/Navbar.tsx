@@ -80,7 +80,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex font-medium items-center">
-        <Button className="font-bold">
+        <Button className="font-bold py-5">
           Resume <Download />
         </Button>
       </div>
