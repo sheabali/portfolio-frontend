@@ -16,6 +16,7 @@ type FormValues = {
 };
 
 const CreateBlog = () => {
+  // clg
   const {
     register,
     handleSubmit,
