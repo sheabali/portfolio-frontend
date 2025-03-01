@@ -2,9 +2,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-// import { signIn } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
+
 import { useForm } from 'react-hook-form';
 
 type FormValues = {
@@ -16,7 +14,6 @@ type FormValues = {
 };
 
 const CreateBlog = () => {
-  
   const {
     register,
     handleSubmit,
@@ -73,22 +70,6 @@ const CreateBlog = () => {
                 {...register('image')}
                 placeholder="Image "
                 className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black  sm:text-sm"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="Description"
-                className="block text-base font-medium"
-              >
-                Description
-              </label>
-              <Input
-                id="description"
-                type="text"
-                {...register('description')}
-                placeholder="Description"
-                className="mt-1 block w-full rounded-none px-4 py-5 border-[2px] border-black  sm:text-sm"
                 required
               />
             </div>
