@@ -1,4 +1,5 @@
-import Sidebar from '@/components/shared/Sidebar';
+import Navbar from '@/components/shared/Navbar';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -13,9 +14,9 @@ export default function CommonLayout({
 }>) {
   return (
     <div className="min-h-screen my-2">
-      <div className="flex justify-between">
+      <div>
         <div>
-          <Sidebar />
+          <Navbar />
         </div>
         <div className="rounded-xl ml-2">{children}</div>
       </div>

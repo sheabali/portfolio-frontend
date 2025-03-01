@@ -94,9 +94,9 @@ const LoginPage = () => {
             <div>
               <Button
                 type="submit"
-                className="w-full my-4 borderfont-semibold rounded-none py-6 px-4  shadow-md"
+                className="w-full my-4 border font-bold rounded-none py-6 px-4  shadow-md"
               >
-                Login
+                Create Project
               </Button>
             </div>
           </form>

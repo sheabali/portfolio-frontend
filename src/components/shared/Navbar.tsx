@@ -47,10 +47,13 @@ const Navbar = () => {
               <Link href="/">Home</Link>
             </li>
             <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/about">About Us</Link>
+              <Link href="/projects">Projects</Link>
             </li>
             <li className="py-2 px-4 hover:bg-gray-100">
-              <Link href="/support">Support</Link>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li className="py-2 px-4 hover:bg-gray-100">
+              <Link href="/dashboard">Dashboard</Link>
             </li>
           </ul>
         </div>
@@ -68,10 +71,13 @@ const Navbar = () => {
             <Link href="/">Home</Link>
           </li>
           <li className="hover:text-gray-600">
-            <Link href="/about">About Us</Link>
+            <Link href="/projects">Projects</Link>
           </li>
           <li className="hover:text-gray-600">
-            <Link href="/support">Support</Link>
+            <Link href="/blog">Blog</Link>
+          </li>
+          <li className="hover:text-gray-600">
+            <Link href="/contact">Contact</Link>
           </li>
           <li className="hover:text-gray-600">
             <Link href="/dashboard">Dashboard</Link>
