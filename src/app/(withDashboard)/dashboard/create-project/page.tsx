@@ -1,109 +1,135 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-// import { signIn } from 'next-auth/react';
+import { createProject } from '@/utils/actions/createProject';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
-type FormValues = {
-  title: string;
-  liveLink: string;
-  image: string;
-  description: string;
-};
+const formSchema = z.object({
+  title: z.string().min(3, 'Title must be at least 3 characters'),
+  liveLink: z.string().url('Invalid URL format'),
+  image: z.string().url('Invalid image URL'),
+  description: z.string().min(10, 'Description must be at least 10 characters'),
+});
 
-const LoginPage = () => {
+export type FormValues = z.infer<typeof formSchema>;
+
+const ProjectForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
+    try {
+      const res = await createProject(data);
+      if (res) {
+        toast.success(res.message);
+        localStorage.setItem('accessToken', res.accessToken);
+        router.push('/');
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+      console.error(err.message);
+    }
   };
 
   return (
     <div className="my-10 w-[90%] mx-auto">
-      <div>
-        <div className="w-[80%] mx-auto bg-white p-6 shadow-lg rounded-lg">
-          <h1 className="my-6 text-4xl font-semibold">Project Form</h1>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-6">
-              <label htmlFor="title" className="block text-base font-medium">
-                Title
-              </label>
-              <Input
-                id=""
-                type="text"
-                {...register('title')}
-                placeholder="Title"
-                className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black  sm:text-sm"
-                required
-              />
-            </div>
+      <div className="w-[80%] mx-auto bg-white p-6 shadow-lg rounded-lg">
+        <h1 className="my-6 text-4xl font-semibold">Project Form</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-6">
+            <label htmlFor="title" className="block text-base font-medium">
+              Title
+            </label>
+            <Input
+              id="title"
+              type="text"
+              {...register('title')}
+              placeholder="Title"
+              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
+            />
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title.message}</p>
+            )}
+          </div>
 
-            <div className="mb-6">
-              <label
-                htmlFor="Live Link"
-                className="block text-base font-medium"
-              >
-                Project
-              </label>
-              <Input
-                id="liveLink"
-                type="text"
-                {...register('liveLink')}
-                placeholder="Project "
-                className="mt-1 block w-full px-4 py-5  border-[2px] rounded-none border-black  sm:text-sm"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="image" className="block text-base font-medium">
-                Image
-              </label>
-              <Input
-                id="image"
-                type="text"
-                {...register('image')}
-                placeholder="Image "
-                className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black  sm:text-sm"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="Description"
-                className="block text-base font-medium"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                {...register('description', {
-                  required: 'Description is required',
-                })}
-                placeholder="Enter description..."
-                className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black  sm:text-sm"
-              />
-            </div>
+          <div className="mb-6">
+            <label htmlFor="liveLink" className="block text-base font-medium">
+              Project Live Link
+            </label>
+            <Input
+              id="liveLink"
+              type="text"
+              {...register('liveLink')}
+              placeholder="Project Live Link"
+              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
+            />
+            {errors.liveLink && (
+              <p className="text-red-500 text-sm">{errors.liveLink.message}</p>
+            )}
+          </div>
 
-            <div>
-              <Button
-                type="submit"
-                className="w-full my-4 border font-bold rounded-none py-6 px-4  shadow-md"
-              >
-                Create Project
-              </Button>
-            </div>
-          </form>
-        </div>
+          <div className="mb-6">
+            <label htmlFor="image" className="block text-base font-medium">
+              Image URL
+            </label>
+            <Input
+              id="image"
+              type="text"
+              {...register('image')}
+              placeholder="Image URL"
+              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
+            />
+            {errors.image && (
+              <p className="text-red-500 text-sm">{errors.image.message}</p>
+            )}
+          </div>
+
+          <div className="mb-6">
+            <label
+              htmlFor="description"
+              className="block text-base font-medium"
+            >
+              Description
+            </label>
+            <textarea
+              id="description"
+              {...register('description')}
+              placeholder="Enter description..."
+              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
+            />
+            {errors.description && (
+              <p className="text-red-500 text-sm">
+                {errors.description.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <Button
+              type="submit"
+              className="w-full my-4 border font-bold rounded-none py-6 px-4 shadow-md"
+            >
+              Create Project
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default ProjectForm;

@@ -13,7 +13,7 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from '@/components/ui/collapsible';
-import { MdDashboard } from 'react-icons/md';
+import { MdCreateNewFolder, MdDashboard } from 'react-icons/md';
 import { IoCreateSharp } from 'react-icons/io5';
 import { BiSolidMessageSquareDetail } from 'react-icons/bi';
 
@@ -92,11 +92,11 @@ const Sidebar = () => {
               <ul className="ml-6 space-y-2 mt-2">
                 <li>
                   <Link
-                    href="/dashboard/blogs"
+                    href="/dashboard/blog"
                     className="block p-2 rounded-md hover:bg-gray-800"
                   >
-                    <IoCreateSharp className="inline-block w-4 h-4 mr-2" />
-                    Create Project
+                    <MdCreateNewFolder className="inline-block w-4 h-4 mr-2" />
+                    Create Blogs
                   </Link>
                 </li>
 

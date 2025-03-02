@@ -19,3 +19,11 @@ export const Css = 'https://i.ibb.co.com/Gvw749sJ/css-3-732190.png';
 export const Redux = 'https://i.ibb.co.com/8nHj8ZgY/redux-512x486.png';
 export const Mongoose = 'https://i.ibb.co.com/4DgqF9T/icons8-mongoose-700.png';
 export const AboutImg = 'https://i.ibb.co.com/fGt8KCGy/Group-1000015845.png';
+
+export type TProject = {
+  _id?: string;
+  title: string;
+  liveLink: string;
+  image: string;
+  description: string;
+};
