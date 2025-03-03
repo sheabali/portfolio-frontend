@@ -15,8 +15,8 @@ const Banner = () => {
         <div className="w-[50%]">
           <div>
             <h1 className="text-5xl font-semibold">
-              Hello I’am Evren Shah. <br /> Frontend Developer <br /> Based In
-              India.
+              Hello I’am Sheikh Pranto. <br /> Frontend Developer <br /> Based
+              In Bangladesh.
             </h1>
             <p className="mt-7 text-base">
               I m Evren Shah Lorem Ipsum is simply dummy text of the printing
