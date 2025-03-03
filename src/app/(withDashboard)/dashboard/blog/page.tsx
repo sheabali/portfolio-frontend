@@ -2,14 +2,15 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { createBlog } from '@/utils/actions/blog/create-blog';
 
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
-type FormValues = {
+export type FormValues = {
   title: string;
   content: string;
   image: string;
-  likes: number;
   category: string;
 };
 
@@ -22,6 +23,17 @@ const CreateBlog = () => {
 
   const onSubmit = async (data: FormValues) => {
     console.log(data);
+    try {
+      const res = await createBlog(data);
+      if (res) {
+        toast.success(res.message);
+        // localStorage.setItem('accessToken', res.accessToken);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast.error(err.message);
+      console.error(err.message);
+    }
   };
 
   return (

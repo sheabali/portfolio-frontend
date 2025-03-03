@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -8,13 +10,43 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TProject } from '@/components/constant/global';
+import { MdDeleteOutline } from 'react-icons/md';
+import { FaEdit } from 'react-icons/fa';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { deleteProject } from '@/utils/actions/deleteProject';
+import { getProjects } from '@/utils/actions/getProjects';
 
-const Projects = async () => {
-  const res = await fetch('http://localhost:5000/api/v1/projects', {
-    cache: 'no-store',
-  }); // No cache for fresh data
-  const projects: TProject[] = await res.json();
-  console.log(projects);
+const Projects = () => {
+  const [projects, setProjects] = useState<TProject[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch projects on component mount
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const data = await getProjects();
+      setProjects(data);
+    };
+    fetchProjects();
+  }, []);
+
+  // Handle project deletion
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+
+    setLoading(true);
+    try {
+      await deleteProject(id);
+      alert('Project deleted successfully!');
+
+      // Refresh the list after deletion
+      setProjects((prev) => prev.filter((project) => project._id !== id));
+    } catch (error) {
+      alert('Failed to delete project.');
+      console.error(error);
+    }
+    setLoading(false);
+  };
 
   return (
     <div className="w-[95%] mx-auto">
@@ -28,16 +60,37 @@ const Projects = async () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {projects.map((project: TProject, index: number) => (
-            <TableRow key={project._id || index}>
-              <TableCell>{project.title}</TableCell>
-              <TableCell>Paid</TableCell>
-              <TableCell>{new Date().toLocaleDateString()}</TableCell>
-              <TableCell className="text-right">
-                <button className="text-blue-500">Edit</button>
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <TableRow key={project._id}>
+                <TableCell>{project.title}</TableCell>
+                <TableCell>Paid</TableCell>
+                <TableCell>
+                  {new Date(project.createdAt).toLocaleDateString()}
+                </TableCell>
+                <TableCell className="text-right flex gap-2 justify-end">
+                  <Link href={`/dashboard/project/${project._id}`}>
+                    <Button variant="outline">
+                      <FaEdit />
+                    </Button>
+                  </Link>
+                  <Button
+                    onClick={() => project._id && handleDelete(project._id)}
+                    variant="outline"
+                    disabled={loading}
+                  >
+                    {loading ? 'Deleting...' : <MdDeleteOutline />}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                No projects found.
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

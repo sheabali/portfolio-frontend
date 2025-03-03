@@ -21,9 +21,19 @@ export const Mongoose = 'https://i.ibb.co.com/4DgqF9T/icons8-mongoose-700.png';
 export const AboutImg = 'https://i.ibb.co.com/fGt8KCGy/Group-1000015845.png';
 
 export type TProject = {
+  createdAt: string | number | Date;
   _id?: string;
   title: string;
   liveLink: string;
   image: string;
   description: string;
+};
+
+export type TBlog = {
+  _id?: string;
+  title: string;
+  content: string;
+  image: string;
+  category: string;
+  createdAt?: string | number | Date;
 };
