@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { deleteProject } from '@/utils/actions/deleteProject';
 import { getProjects } from '@/utils/actions/getProjects';
+import moment from 'moment';
 
 const Projects = () => {
   const [projects, setProjects] = useState<TProject[]>([]);
@@ -66,7 +67,9 @@ const Projects = () => {
                 <TableCell>{project.title}</TableCell>
                 <TableCell>Paid</TableCell>
                 <TableCell>
-                  {new Date(project.createdAt).toLocaleDateString()}
+                  {project.timestamp
+                    ? moment(project.timestamp).format('YYYY-MM-DD') // Format the date with Moment.js
+                    : 'N/A'}
                 </TableCell>
                 <TableCell className="text-right flex gap-2 justify-end">
                   <Link href={`/dashboard/project/${project._id}`}>

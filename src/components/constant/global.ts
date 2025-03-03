@@ -27,6 +27,7 @@ export type TProject = {
   liveLink: string;
   image: string;
   description: string;
+  timestamp?: string | number;
 };
 
 export type TBlog = {
@@ -36,4 +37,5 @@ export type TBlog = {
   image: string;
   category: string;
   createdAt?: string | number | Date;
+  timestamp?: string | number | Date;
 };

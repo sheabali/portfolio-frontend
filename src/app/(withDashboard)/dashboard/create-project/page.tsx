@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { createProject } from '@/utils/actions/createProject';
-
-import Image from 'next/image';
-import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -24,10 +20,10 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 const ProjectForm = () => {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(formSchema) });
 
@@ -37,7 +33,7 @@ const ProjectForm = () => {
       if (res) {
         toast.success(res.message);
         localStorage.setItem('accessToken', res.accessToken);
-        router.push('/');
+        reset();
       }
     } catch (err: any) {
       toast.error(err.message);
