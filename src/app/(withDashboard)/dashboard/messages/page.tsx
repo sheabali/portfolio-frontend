@@ -10,10 +10,18 @@ import {
 } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 
+type TMsg = {
+  timestamp: string | number | Date;
+  _id: string;
+  name: string;
+  email: string;
+  message: string;
+};
+
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -29,7 +37,11 @@ const Messages = () => {
         const data = await res.json();
         setMessages(data);
       } catch (error) {
-        setError(error.message);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError(String(error));
+        }
       } finally {
         setLoading(false);
       }
@@ -63,7 +75,7 @@ const Messages = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {messages.map((msg) => (
+            {messages.map((msg: TMsg) => (
               <TableRow key={msg._id}>
                 <TableCell>{msg.name}</TableCell>
                 <TableCell>{msg.email}</TableCell>
