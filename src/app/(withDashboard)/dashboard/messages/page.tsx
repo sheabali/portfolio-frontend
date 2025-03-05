@@ -18,7 +18,9 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/v1/messages');
+        const res = await fetch(
+          'https://portfolio-server-cyan-sigma.vercel.app/api/v1/messages'
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

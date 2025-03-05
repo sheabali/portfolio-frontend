@@ -1,11 +1,14 @@
 export async function deleteProject(id: string) {
   try {
-    const res = await fetch(`http://localhost:5000/api/v1/projects/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const res = await fetch(
+      `https://portfolio-server-cyan-sigma.vercel.app/api/v1/projects/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`Failed to delete project: ${res.statusText}`);

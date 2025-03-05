@@ -24,7 +24,9 @@ const Project = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/v1/projects');
+        const res = await fetch(
+          'https://portfolio-server-cyan-sigma.vercel.app/api/v1/projects'
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

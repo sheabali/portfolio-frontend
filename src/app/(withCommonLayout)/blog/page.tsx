@@ -23,7 +23,9 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/v1/blogs');
+        const res = await fetch(
+          'https://portfolio-server-cyan-sigma.vercel.app/api/v1/blogs'
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

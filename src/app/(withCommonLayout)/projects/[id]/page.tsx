@@ -24,7 +24,9 @@ const SingleProject = () => {
 
     const fetchProject = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/projects/${id}`);
+        const res = await fetch(
+          `https://portfolio-server-cyan-sigma.vercel.app/api/v1/projects/${id}`
+        );
 
         if (!res.ok) {
           throw new Error(`project not found`);

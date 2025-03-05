@@ -37,7 +37,7 @@ const ProjectUpdatePage = () => {
       const fetchProject = async () => {
         try {
           const res = await fetch(
-            `http://localhost:5000/api/v1/projects/${projectId}`
+            `https://portfolio-server-cyan-sigma.vercel.app/api/v1/projects/${projectId}`
           );
           const data = await res.json();
           if (res.ok) {
@@ -60,7 +60,7 @@ const ProjectUpdatePage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/update-project${
+        `https://portfolio-server-cyan-sigma.vercel.app/api/v1/update-project${
           projectId ? `/${projectId}` : ''
         }`,
         {

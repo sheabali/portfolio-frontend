@@ -37,7 +37,7 @@ const BlogUpdatePage = () => {
       const fetchBlog = async () => {
         try {
           const res = await fetch(
-            `http://localhost:5000/api/v1/blogs/${blogId}`
+            `https://portfolio-server-cyan-sigma.vercel.app/api/v1/blogs/${blogId}`
           );
           const data = await res.json();
           if (res.ok) {
@@ -60,7 +60,9 @@ const BlogUpdatePage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/update-blog${blogId ? `/${blogId}` : ''}`,
+        `https://portfolio-server-cyan-sigma.vercel.app/api/v1/update-blog${
+          blogId ? `/${blogId}` : ''
+        }`,
         {
           method: blogId ? 'PUT' : 'POST',
           headers: { 'Content-Type': 'application/json' },

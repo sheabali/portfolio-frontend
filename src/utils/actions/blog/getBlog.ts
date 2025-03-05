@@ -4,9 +4,12 @@ import { TBlog } from '@/components/constant/global';
 
 export async function getBlogs(): Promise<TBlog[]> {
   try {
-    const res = await fetch('http://localhost:5000/api/v1/blogs', {
-      cache: 'no-store', // Ensures fresh data
-    });
+    const res = await fetch(
+      'https://portfolio-server-cyan-sigma.vercel.app/api/v1/blogs',
+      {
+        cache: 'no-store', // Ensures fresh data
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`Failed to fetch blogs: ${res.statusText}`);
