@@ -5,16 +5,18 @@ import { Button } from '../ui/button';
 import { Download } from 'lucide-react';
 import Image from 'next/image';
 import { logo } from '../constant/global';
+import { signOut } from 'next-auth/react';
 
-// type UserProps = {
-//   user?: {
-//     name?: string | null | undefined;
-//     email?: string | null | undefined;
-//     image?: string | null | undefined;
-//   };
-// };
+type UserProps = {
+  user?: {
+    name?: string | null | undefined;
+    email?: string | null | undefined;
+    image?: string | null | undefined;
+  };
+};
 
-const Navbar = () => {
+const Navbar = ({ session }: { session: UserProps | null }) => {
+  console.log('session', session);
   return (
     <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
       <div className="flex items-center">
@@ -83,6 +85,23 @@ const Navbar = () => {
             <Link href="/dashboard">Dashboard</Link>
           </li>
         </ul>
+      </div>
+      <div className="flex items-center">
+        {session?.user ? (
+          <button
+            className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200"
+            onClick={() => signOut()}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            href="/login"
+            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+          >
+            Login
+          </Link>
+        )}
       </div>
 
       <div className="flex font-medium items-center">

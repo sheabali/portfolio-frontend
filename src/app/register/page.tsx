@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import Container from '@/components/Container/Container';
 import { Button } from '@/components/ui/button';
@@ -28,13 +27,24 @@ const RegisterPage = () => {
     console.log(data);
     try {
       const res = await registerUser(data);
-      if (res.success) {
+      console.log(res);
+
+      if (res?.success) {
         toast.success(res.message);
         router.push('/login');
+      } else {
+        // Handle API response errors
+        toast.error(res?.message || 'Registration failed. Please try again.');
       }
-    } catch (err: any) {
-      console.error(err.message);
-      throw new Error(err.message);
+    } catch (err: unknown) {
+      // Handle unexpected errors
+      if (err instanceof Error) {
+        toast.error(err.message);
+        console.error('Unexpected error:', err);
+      } else {
+        toast.error('An unknown error occurred.');
+        console.error('Unknown error:', err);
+      }
     }
   };
 

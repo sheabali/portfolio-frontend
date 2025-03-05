@@ -1,35 +1,21 @@
-// import { authOptions } from '@/utils/authOptions';
-// import { getServerSession } from 'next-auth';
-// import Image from 'next/image';
+import UserCard from '@/components/UserCard/UserCard';
+import { authOptions } from '@/utils/authOptions';
+import { getServerSession } from 'next-auth';
 
-const DashboardPage = async () => {
-  // const session = await getServerSession(authOptions);
-  // console.log(session);
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <p className="text-xl text-gray-700">You are not logged in.</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      {/* {session?.user && (
-        <>
-          <h1 className="text-4xl text-center mt-10">
-            Welcome {session?.user?.name}
-          </h1>
-          <h1 className="text-4xl text-center mt-10">
-            Logged-in user email: {session?.user?.email}
-          </h1>
-          <Image
-            src={
-              session?.user?.image ||
-              'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-            }
-            width={100}
-            height={100}
-            alt="user image"
-            className="mx-auto rounded-full mt-5"
-          />
-        </>
-      )} */}
-      Dashboard
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <UserCard user={session.user} />
     </div>
   );
-};
-
-export default DashboardPage;
+}
