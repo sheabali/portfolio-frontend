@@ -1,14 +1,16 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import Container from '@/components/Container/Container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image';
 import { TBlog } from '@/components/constant/global';
 
 const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState<TBlog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +24,6 @@ const Blog = () => {
         }
 
         const data = await res.json();
-        console.log(data);
         setBlogs(data);
       } catch (error) {
         if (error instanceof Error) {
@@ -67,18 +68,19 @@ const Blog = () => {
               )}
               <CardHeader>
                 <CardTitle>{blog.title}</CardTitle>
-                {/* <CardDescription>{blog.description}</CardDescription> */}
               </CardHeader>
               <CardContent>
-                {/* <p>
-                  <strong>Author:</strong> {blog.author}
-                </p> */}
                 <p>
                   <strong>Published:</strong>{' '}
                   {blog.timestamp
                     ? new Date(blog.timestamp).toLocaleDateString()
                     : 'Unknown date'}
                 </p>
+                <div className="mt-3">
+                  <Link href={`/blog/${blog._id}`} passHref>
+                    <Button variant="outline">Read More</Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ))}

@@ -12,6 +12,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { TProject } from '@/components/constant/global';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
@@ -83,6 +85,11 @@ const Project = () => {
                   <strong>Date:</strong>{' '}
                   {new Date(project?.timestamp ?? '').toLocaleDateString()}
                 </p>
+                <div className="mt-3">
+                  <Link href={`/projects/${project._id}`} passHref>
+                    <Button variant="outline">Read More</Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ))}
