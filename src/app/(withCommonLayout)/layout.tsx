@@ -15,7 +15,7 @@ export default async function CommonLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
-  console.log('session', session);
+
   return (
     <div className="min-h-screen my-2">
       <div>

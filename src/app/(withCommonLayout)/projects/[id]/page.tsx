@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Container from '@/components/Container/Container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GoProjectSymlink } from 'react-icons/go';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -13,25 +14,25 @@ import Link from 'next/link';
 
 const SingleProject = () => {
   const params = useParams();
-  const id = params?.id as string; // Get blog ID from URL
-  const [blog, setBlog] = useState<any>(null);
+  const id = params?.id as string; // Get project ID from URL
+  const [project, setProject] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  console.log('blogId', id);
+
   useEffect(() => {
     if (!id) return;
 
-    const fetchBlog = async () => {
+    const fetchProject = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/v1/projects/${id}`);
-        console.log(res);
+
         if (!res.ok) {
-          throw new Error(`Blog not found`);
+          throw new Error(`project not found`);
         }
 
         const data = await res.json();
-        console.log(data);
-        setBlog(data);
+
+        setProject(data);
       } catch (error) {
         if (error instanceof Error) {
           setError(error.message);
@@ -43,7 +44,7 @@ const SingleProject = () => {
       }
     };
 
-    fetchBlog();
+    fetchProject();
   }, [id]);
 
   if (loading) {
@@ -64,39 +65,42 @@ const SingleProject = () => {
     );
   }
 
-  if (!blog) {
-    notFound(); // Show 404 page if blog is not found
+  if (!project) {
+    notFound(); // Show 404 page if project is not found
   }
 
   return (
     <Container>
       <Card className="p-4">
-        {blog.image && (
+        {project.image && (
           <Image
-            src={blog.image}
+            src={project.image}
             height={200}
             width={200}
-            alt={blog.title}
+            alt={project.title}
             className="w-full h-40 object-cover rounded-t-lg"
           />
         )}
         <CardHeader>
-          <CardTitle className="text-3xl">{blog.title}</CardTitle>
+          <CardTitle className="text-3xl">{project.title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-600">{blog.description}</p>
-          <p className="mt-4">
-            <strong>Author:</strong> {blog.author || 'Unknown'}
-          </p>
+          <p className="text-gray-600">{project.description}</p>
+          <div className="my-6 flex gap-7 items-center ">
+            <strong>Live Link:</strong>{' '}
+            <a className="text-2xl" href={project.liveLink}>
+              <GoProjectSymlink />
+            </a>
+          </div>
           <p>
             <strong>Published:</strong>{' '}
-            {blog.timestamp
-              ? new Date(blog.timestamp).toLocaleDateString()
+            {project.timestamp
+              ? new Date(project.timestamp).toLocaleDateString()
               : 'Unknown date'}
           </p>
           <div className="mt-6">
-            <Link href="/blog">
-              <Button variant="outline">Back to Blogs</Button>
+            <Link href="/project">
+              <Button variant="outline">Back to projects</Button>
             </Link>
           </div>
         </CardContent>

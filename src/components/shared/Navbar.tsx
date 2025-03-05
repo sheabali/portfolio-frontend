@@ -16,7 +16,6 @@ type UserProps = {
 };
 
 const Navbar = ({ session }: { session: UserProps | null }) => {
-  console.log('session', session);
   return (
     <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
       <div className="flex items-center">
@@ -88,19 +87,20 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
       </div>
       <div className="flex items-center">
         {session?.user ? (
-          <button
-            className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200"
+          <Button
+            variant="outline"
+            className="border-red-500 text-red-500  px-5 py-2 "
             onClick={() => signOut()}
           >
             Logout
-          </button>
+          </Button>
         ) : (
-          <Link
-            href="/login"
-            className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+          <Button
+            variant="outline"
+            className="border-black text-black  px-5 py-2 "
           >
-            Login
-          </Link>
+            <Link href="/login">Login</Link>
+          </Button>
         )}
       </div>
 

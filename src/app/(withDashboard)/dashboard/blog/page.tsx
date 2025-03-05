@@ -12,10 +12,14 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 const formSchema = z.object({
-  title: z.string().min(3, 'Title must be at least 3 characters'),
-  content: z.string().url('Invalid URL format'),
-  image: z.string().url('Invalid image URL'),
-  category: z.string().min(6, 'category must be at least 10 characters'),
+  title: z.string().min(3, { message: 'Title must be at least 3 characters' }),
+  content: z
+    .string()
+    .min(10, { message: 'Content must be at least 10 characters' }),
+  image: z.string().url({ message: 'Invalid image URL' }),
+  category: z
+    .string()
+    .min(6, { message: 'Category must be at least 6 characters' }),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
@@ -31,7 +35,7 @@ const CreateBlog = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       const res = await createBlog(data);
-      console.log(res);
+
       if (res) {
         toast.success(res.message);
         // localStorage.setItem('accessToken', res.accessToken);
@@ -65,22 +69,6 @@ const CreateBlog = () => {
           </div>
 
           <div className="mb-6">
-            <label htmlFor="content" className="block text-base font-medium">
-              Content
-            </label>
-            <Input
-              id="content"
-              type="text"
-              {...register('content')}
-              placeholder="Blog Content"
-              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
-            />
-            {errors.content && (
-              <p className="text-red-500 text-sm">{errors.content.message}</p>
-            )}
-          </div>
-
-          <div className="mb-6">
             <label htmlFor="image" className="block text-base font-medium">
               Image URL
             </label>
@@ -108,6 +96,20 @@ const CreateBlog = () => {
             />
             {errors.category && (
               <p className="text-red-500 text-sm">{errors.category.message}</p>
+            )}
+          </div>
+          <div className="mb-6">
+            <label htmlFor="content" className="block text-base font-medium">
+              Content
+            </label>
+            <textarea
+              id="content"
+              {...register('content')}
+              placeholder="Blog Content"
+              className="mt-1 block w-full px-4 py-5 border-[2px] rounded-none border-black sm:text-sm"
+            />
+            {errors.content && (
+              <p className="text-red-500 text-sm">{errors.content.message}</p>
             )}
           </div>
 

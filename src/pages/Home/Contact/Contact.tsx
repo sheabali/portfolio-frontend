@@ -33,10 +33,9 @@ const Contact = () => {
   } = useForm<FormValues>({ resolver: zodResolver(formSchema) });
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
     try {
       const res = await saveContact({ ...data, website: data.website || '' });
-      console.log(res);
+
       if (res) {
         toast.success(res.message);
         // localStorage.setItem('accessToken', res.accessToken);

@@ -5,7 +5,13 @@ import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Container from '@/components/Container/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -17,20 +23,20 @@ const SingleBlog = () => {
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  console.log('blogId', id);
+
   useEffect(() => {
     if (!id) return;
 
     const fetchBlog = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/v1/blogs/${id}`);
-        console.log(res);
+
         if (!res.ok) {
           throw new Error(`Blog not found`);
         }
 
         const data = await res.json();
-        console.log(data);
+
         setBlog(data);
       } catch (error) {
         if (error instanceof Error) {
@@ -82,6 +88,11 @@ const SingleBlog = () => {
         )}
         <CardHeader>
           <CardTitle className="text-3xl">{blog.title}</CardTitle>
+          <CardDescription>
+            {blog.content.length > 80
+              ? `${blog.content.slice(0, 80)}...`
+              : blog.content}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-gray-600">{blog.description}</p>

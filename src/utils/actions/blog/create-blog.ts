@@ -3,7 +3,6 @@
 import { FormValues } from '@/app/(withDashboard)/dashboard/blog/page';
 
 export const createBlog = async (data: FormValues) => {
-  console.log(process.env.BACKEND_URL);
   const res = await fetch(`${process.env.BACKEND_URL}/create-blog`, {
     method: 'POST',
     headers: {

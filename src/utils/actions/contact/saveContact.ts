@@ -8,7 +8,6 @@ export type TContact = {
 };
 
 export const saveContact = async (data: TContact) => {
-  console.log(process.env.BACKEND_URL);
   const res = await fetch(`${process.env.BACKEND_URL}/save-contact`, {
     method: 'POST',
     headers: {

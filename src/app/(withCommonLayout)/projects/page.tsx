@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { TProject } from '@/components/constant/global';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { GoProjectSymlink } from 'react-icons/go';
 
 const Project = () => {
   const [projects, setProjects] = useState([]);
@@ -30,7 +31,7 @@ const Project = () => {
         }
 
         const data = await res.json();
-        console.log(data);
+
         setProjects(data);
       } catch (error) {
         if (error instanceof Error) {
@@ -78,17 +79,33 @@ const Project = () => {
               )}
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardDescription>
+                  {project.description.length > 80
+                    ? `${project.description.slice(0, 80)}...`
+                    : project.description}
+                </CardDescription>
               </CardHeader>
+
               <CardContent>
                 <p>
                   <strong>Date:</strong>{' '}
                   {new Date(project?.timestamp ?? '').toLocaleDateString()}
                 </p>
-                <div className="mt-3">
+                <div className="flex justify-between items-center mt-3">
                   <Link href={`/projects/${project._id}`} passHref>
                     <Button variant="outline">Read More</Button>
                   </Link>
+                  <div className=" flex gap-7 items-center ">
+                    <strong>Live Link:</strong>{' '}
+                    <a
+                      className="text-2xl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={project.liveLink}
+                    >
+                      <GoProjectSymlink />
+                    </a>
+                  </div>
                 </div>
               </CardContent>
             </Card>

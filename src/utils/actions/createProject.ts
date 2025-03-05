@@ -3,7 +3,6 @@
 import { FormValues } from '@/app/(withDashboard)/dashboard/create-project/page';
 
 export const createProject = async (data: FormValues) => {
-  console.log(process.env.BACKEND_URL);
   const res = await fetch(`${process.env.BACKEND_URL}/create-project`, {
     method: 'POST',
     headers: {

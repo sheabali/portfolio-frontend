@@ -65,7 +65,11 @@ const Blogs = () => {
           {Blogs.length > 0 ? (
             Blogs.map((Blog) => (
               <TableRow key={Blog._id}>
-                <TableCell>{Blog.title}</TableCell>
+                <TableCell>
+                  {Blog.title.length > 8
+                    ? `${Blog.title.slice(0, 8)}...`
+                    : Blog.title}
+                </TableCell>
                 <TableCell>Paid</TableCell>
                 <TableCell>
                   {Blog.timestamp

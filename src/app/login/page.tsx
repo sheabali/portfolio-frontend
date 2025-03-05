@@ -25,11 +25,8 @@ const LoginPage = () => {
   } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
-
     try {
       const res = await loginUser(data);
-      console.log(res);
 
       if (res?.accessToken) {
         localStorage.setItem('accessToken', res.accessToken);
