@@ -4,7 +4,13 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Container from '@/components/Container/Container';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TBlog } from '@/components/constant/global';
@@ -68,6 +74,11 @@ const Blog = () => {
               )}
               <CardHeader>
                 <CardTitle>{blog.title}</CardTitle>
+                <CardDescription>
+                  {blog.content.length > 150
+                    ? `${blog.content.slice(0, 150)}...`
+                    : blog.content}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <p>

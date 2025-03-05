@@ -89,9 +89,7 @@ const SingleBlog = () => {
         <CardHeader>
           <CardTitle className="text-3xl">{blog.title}</CardTitle>
           <CardDescription>
-            {blog.content.length > 80
-              ? `${blog.content.slice(0, 80)}...`
-              : blog.content}
+            <p className="my-5">{blog.content}</p>
           </CardDescription>
         </CardHeader>
         <CardContent>

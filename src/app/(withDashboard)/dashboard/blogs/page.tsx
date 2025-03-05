@@ -77,7 +77,7 @@ const Blogs = () => {
                     : 'N/A'}
                 </TableCell>
                 <TableCell className="text-right flex gap-2 justify-end">
-                  <Link href={`/dashboard/Blog/${Blog._id}`}>
+                  <Link href={`/dashboard/blogs/${Blog._id}`}>
                     <Button variant="outline">
                       <FaEdit />
                     </Button>

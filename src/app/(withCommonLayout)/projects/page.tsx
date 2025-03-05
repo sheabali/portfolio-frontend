@@ -93,7 +93,7 @@ const Project = () => {
                 </p>
                 <div className="flex justify-between items-center mt-3">
                   <Link href={`/projects/${project._id}`} passHref>
-                    <Button variant="outline">Read More</Button>
+                    <Button variant="outline">See detailes </Button>
                   </Link>
                   <div className=" flex gap-7 items-center ">
                     <strong>Live Link:</strong>{' '}
