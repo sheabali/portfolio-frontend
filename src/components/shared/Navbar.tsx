@@ -6,6 +6,7 @@ import { Download } from 'lucide-react';
 import Image from 'next/image';
 import { logo } from '../constant/global';
 import { signOut } from 'next-auth/react';
+import { ModeToggle } from '../ModeToggle';
 
 type UserProps = {
   user?: {
@@ -103,7 +104,10 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
           </Button>
         )}
       </div>
-
+      <div>
+        {' '}
+        <ModeToggle />
+      </div>
       <div className="flex font-medium items-center">
         <Button className="font-bold py-5">
           Resume <Download />
