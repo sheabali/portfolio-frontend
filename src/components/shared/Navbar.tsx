@@ -5,20 +5,12 @@ import { Button } from '../ui/button';
 import { Download } from 'lucide-react';
 import Image from 'next/image';
 import { logo } from '../constant/global';
-import { signOut } from 'next-auth/react';
+
 import { ModeToggle } from '../ModeToggle';
 
-type UserProps = {
-  user?: {
-    name?: string | null | undefined;
-    email?: string | null | undefined;
-    image?: string | null | undefined;
-  };
-};
-
-const Navbar = ({ session }: { session: UserProps | null }) => {
+const Navbar = () => {
   return (
-    <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
+    <div className="w-full mx-auto flex items-center justify-between bg-white border-b py-4 px-10">
       <div className="flex items-center">
         <div className="relative lg:hidden">
           <div
@@ -81,34 +73,13 @@ const Navbar = ({ session }: { session: UserProps | null }) => {
           <li className="hover:text-gray-600">
             <Link href="/contact">Contact</Link>
           </li>
-          <li className="hover:text-gray-600">
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
         </ul>
       </div>
-      <div className="flex items-center">
-        {session?.user ? (
-          <Button
-            variant="outline"
-            className="border-red-500 text-red-500  px-5 py-2 "
-            onClick={() => signOut()}
-          >
-            Logout
-          </Button>
-        ) : (
-          <Button
-            variant="outline"
-            className="border-black text-black  px-5 py-2 "
-          >
-            <Link href="/login">Login</Link>
-          </Button>
-        )}
-      </div>
-      <div>
-        {' '}
-        <ModeToggle />
-      </div>
-      <div className="flex font-medium items-center">
+
+      <div className="flex gap-4 font-medium items-center">
+        <div>
+          <ModeToggle />
+        </div>
         <Button className="font-bold py-5">
           Resume <Download />
         </Button>

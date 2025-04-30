@@ -3,6 +3,7 @@ import { authOptions } from '@/utils/authOptions';
 
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   title: 'Next Auth Dashboard',
@@ -21,8 +22,8 @@ export default async function CommonLayout({
       <div>
         <div>
           <Navbar session={session} />
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </div>
-        <div className="rounded-xl ml-2">{children}</div>
       </div>
     </div>
   );

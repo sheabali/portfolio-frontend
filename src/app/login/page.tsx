@@ -51,6 +51,7 @@ const LoginPage = () => {
   return (
     <Container>
       <h1 className="text-center text-4xl font-semibold">Login</h1>
+
       <div className="my-10 mx-auto">
         <div className="mx-auto flex flex-col md:flex-row justify-center gap-11 bg-white rounded-lg">
           <div className="w-full md:w-1/2 ">
